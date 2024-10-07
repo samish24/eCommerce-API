@@ -1,4 +1,4 @@
-import pg from 'pg';
+import pg from "pg";
 const { Pool } = pg;
 
 const pool = new Pool({
@@ -15,9 +15,9 @@ const pool = new Pool({
 const connectDB = async () => {
   try {
     await pool.connect();
-    console.log('Connected to NeonPostgreSQL');
+    console.log("Connected to NeonPostgreSQL");
   } catch (error) {
-    console.error('Connection error:', error.stack);
+    console.error("Connection error:", error.stack);
   }
 };
 
