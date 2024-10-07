@@ -1,6 +1,5 @@
 import express from "express";
 
-import upload from "../services/Upload.js";
 import {
   addNewProduct,
   deleteProduct,
@@ -9,12 +8,12 @@ import {
   updateProduct,
 } from "../controller/Product.js";
 
-const booksRouter = express.Router();
+const productsRouter = express.Router();
 
-booksRouter.route("/").get(getAllProducts);
-booksRouter.route("/").post(upload.single("image"), addNewProduct);
-booksRouter.route("/:id").get(getProductById);
-booksRouter.route("/:id").put(updateProduct);
-booksRouter.route("/:id").delete(deleteProduct);
+productsRouter.route("/").get(getAllProducts);
+productsRouter.route("/").post(addNewProduct);
+productsRouter.route("/:id").get(getProductById);
+productsRouter.route("/:id").put(updateProduct);
+productsRouter.route("/:id").delete(deleteProduct);
 
 export default productsRouter;

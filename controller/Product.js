@@ -1,5 +1,4 @@
 import pool from "../db/server.js";
-import ErrorResponse from "../utils/ErrorResponse.js";
 
 export const getAllProducts = async (req, res, next) => {
   try {
@@ -24,24 +23,14 @@ export const getProductById = async (req, res, next) => {
 };
 
 export const addNewProduct = async (req, res, next) => {
+  const { productName, description, image_url } = req.body;
+
   try {
-    if (!req.file) {
-      throw new ErrorResponse("No file uploaded", 400);
-    }
-
-    const { productName, description } = req.body;
-    const imageUrl = req.file.path;
-
-    if (!productName || !description) {
-      throw new ErrorResponse("all fields are required", 418);
-    }
     const result = await pool.query(
       "INSERT INTO products (productName, description, image_url) VALUES ($1, $2, $3) RETURNING *",
-      [productName, description, imageUrl]
+      [productName, description, image_url]
     );
-    res
-      .status(201)
-      .json({ message: "Product uploaded succesfully", book: result.rows[0] });
+    res.status(201).json(result.rows[0]);
   } catch (error) {
     next(error);
   }
